@@ -11,13 +11,21 @@ namespace MeteoStation
         private float _temperature;
         private float _humidity;
         private float _pressure;
+        private ISubject _weatherData;
 
+        public ModuleData(ISubject weatherData)
+        {
+            this._weatherData = weatherData;
+            _weatherData.RegisterObserver(this);
+        }
 
         public void Actualize(float temp, float hum, float press)
         {
             _temperature = temp;
             _humidity = hum;
             _pressure = press;
+
+            Display();
         }
 
         public void Display()
